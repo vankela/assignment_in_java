@@ -1,0 +1,25 @@
+# assignment_in_java
+package assignment_in_java;
+import java.util.*;
+
+public class UniqueElement {
+
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter the number: ");
+		int n= sc.nextInt();
+		System.out.println("Enter the sequence number");
+		int sum=0,totalsum,missingnumber;
+		for(int i=1;i<n;i++) {
+			int num=sc.nextInt();
+			sum+=num;
+		}
+		totalsum=n*(n+1)/2;
+		missingnumber=totalsum-sum;
+		System.out.println("Missing number "+missingnumber);
+		
+		// TODO Auto-generated method stub
+
+	}
+
+}
