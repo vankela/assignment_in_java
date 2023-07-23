@@ -1,0 +1,97 @@
+# assignment_in_java
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+/*
+ * Create the Student and Priorities classes here.
+ */
+ import java.util.*;
+
+class Student implements Comparable<Student> {
+    private int id;
+    private String name;
+    private double cgpa;
+
+    public Student(int id, String name, double cgpa) {
+        this.id = id;
+        this.name = name;
+        this.cgpa = cgpa;
+    }
+
+    public int getID() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getCGPA() {
+        return cgpa;
+    }
+
+    @Override
+    public int compareTo(Student other) {
+        if (this.cgpa != other.cgpa) {
+            return Double.compare(other.cgpa, this.cgpa); // Higher CGPA first
+        } else {
+            if (!this.name.equals(other.name)) {
+                return this.name.compareTo(other.name); // Ascending alphabetical order of names
+            } else {
+                return Integer.compare(this.id, other.id); // Ascending order of IDs
+            }
+        }
+    }
+}
+
+class Priorities {
+    public List<Student> getStudents(List<String> events) {
+        PriorityQueue<Student> priorityQueue = new PriorityQueue<>();
+
+        List<Student> students = new ArrayList<>();
+
+        for (String event : events) {
+            String[] tokens = event.split(" ");
+            if (tokens[0].equals("ENTER")) {
+                String name = tokens[1];
+                double cgpa = Double.parseDouble(tokens[2]);
+                int id = Integer.parseInt(tokens[3]);
+                priorityQueue.add(new Student(id, name, cgpa));
+            } else if (tokens[0].equals("SERVED")) {
+                priorityQueue.poll();
+            }
+        }
+
+        while (!priorityQueue.isEmpty()) {
+            students.add(priorityQueue.poll());
+        }
+        return students;
+    }
+}
+
+
+public class Solution {
+    private final static Scanner scan = new Scanner(System.in);
+    private final static Priorities priorities = new Priorities();
+    
+    public static void main(String[] args) {
+        int totalEvents = Integer.parseInt(scan.nextLine());    
+        List<String> events = new ArrayList<>();
+        
+        while (totalEvents-- != 0) {
+            String event = scan.nextLine();
+            events.add(event);
+        }
+        
+        List<Student> students = priorities.getStudents(events);
+        
+        if (students.isEmpty()) {
+            System.out.println("EMPTY");
+        } else {
+            for (Student st: students) {
+                System.out.println(st.getName());
+            }
+        }
+    }
+}
