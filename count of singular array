@@ -1,0 +1,43 @@
+# assignment_in_java
+
+package assignment_in_java;
+import java.util.*;
+
+public class SortOrder {
+	
+	static int SingularSocks(int[] arrNum) {
+        int maxSockID = getMaxSockID(arrNum);
+        int[] sockCount = new int[maxSockID + 1];
+
+        // Count the frequency of each sock pair ID
+        for (int i = 0; i < arrNum.length; i++) {
+            sockCount[arrNum[i]]++;
+        }
+
+        int singleCount = 0;
+
+        // Count the singular socks
+        for (int i = 0; i < sockCount.length; i++) {
+            singleCount += sockCount[i] % 2;
+        }
+
+        return singleCount;
+    }
+
+    static int getMaxSockID(int[] arrNum) {
+        int maxSockID = arrNum[0];
+        for (int i = 1; i < arrNum.length; i++) {
+            if (arrNum[i] > maxSockID) {
+                maxSockID = arrNum[i];
+            }
+        }
+        return maxSockID;
+    }
+
+    public static void main(String[] args) {
+        int[] arrNum = {10, 20, 20, 10, 10, 30, 50, 10, 20};
+        int singleCount = SingularSocks(arrNum);
+
+        System.out.println("Count of singular socks = " + singleCount);
+    }
+}
