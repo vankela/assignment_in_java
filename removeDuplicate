@@ -1,0 +1,66 @@
+# assignment_in_java
+
+package assignment_in_java;
+
+
+class Node1{
+	int data;
+	Node1 next;
+	Node1(int data){
+		this.data=data;
+		next=null;
+	}
+	
+}
+ public class removeDuplicateFromLinkedList {
+	
+	static Node1 duplicateElement(Node1 head) {
+		if(head == null) {
+			return null;
+		}
+		Node1 current=head;
+		while(current!=null) {
+			Node1 prev=current;
+			while(prev.next!=null) {
+				if(prev.next.data== current.data) {
+					prev.next=prev.next.next;
+				}else {
+					prev=prev.next;
+				}
+			}
+			current=current.next;
+		}
+		return head;
+			
+	}
+	static void display(Node1 head) {
+		Node1 current=head;
+		while(current!=null) {
+			System.out.print(current.data);
+			if(current.next!=null) {
+				System.out.print(" -> ");
+			}
+			current=current.next;
+		}
+		System.out.println();
+	}
+	public static void main(String[] args) {
+		Node1 head = new Node1(2);
+        head.next = new Node1(5);
+        head.next.next = new Node1(12);
+        head.next.next.next = new Node1(2);
+        head.next.next.next.next = new Node1(3);
+        head.next.next.next.next.next = new Node1(5);
+        head.next.next.next.next.next.next = new Node1(1);
+        head.next.next.next.next.next.next.next = new Node1(2);
+        head.next.next.next.next.next.next.next.next = new Node1(5);
+        head.next.next.next.next.next.next.next.next.next = new Node1(5);
+        System.out.println("Original Linked List:");
+        display(head);
+        head=duplicateElement(head);
+        System.out.println("linked list after removing the duplicates:");
+        display(head);
+		
+		
+	}
+}
